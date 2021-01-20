@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>平滑滚动</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/Swiper/6.4.5/swiper-bundle.min.css" rel="stylesheet">
+  <style>
+    .swiper-container {
+      height: 300px;
+    }
+    .swiper-slide {
+      width: 600px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, .15);
+      cursor: pointer;
+    }
+    .swiper-container-free-mode  .swiper-wrapper {
+      -webkit-transition-timing-function: linear !important;
+      -moz-transition-timing-function: linear !important;
+      -ms-transition-timing-function: linear !important;
+      -o-transition-timing-function: linear !important;
+      transition-timing-function: linear !important;
+      margin: 0 auto !important
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Slider main container -->
+  <div class="swiper-container">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+    </div>
+    <!-- If we need pagination -->
+    <!-- <div class="swiper-pagnation"></div> -->
+
+    <!-- If we need navigation buttons -->
+    <!-- <div class="swiper-button-prev"></div> -->
+    <!-- <div class="swiper-button-next"></div>i -->
+
+  </div>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js"></script>
+  <script>
+    const el = document.querySelector('.swiper-container')
+    const swiper = new Swiper(el, {
+      // 分页/导航
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+      },
+      freeMode: true,
+      // 个数
+      slidesPerGroup: 1,
+      slidesPerView: 'auto',
+      spaceBetween: 10,
+      // 自动播放
+      speed: 10000,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false
+      },
+      loop: true
+    })
+
+    el.addEventListener('mouseenter', e => {
+      // const lastNeedSwiperSpeed = Math.abs(Math.abs(swiper.getTranslate()) - Math.abs(swiper.translate)) / (slideWidth + swiper.params.spaceBetween) * this.swiper.params.speed
+      swiper.setTranslate(swiper.getTranslate())
+      swiper.autoplay.stop()
+    })
+    el.addEventListener('mouseleave', e => {
+      swiper.autoplay.start()
+    })
+  </script>
+
+</body>
+</html>
